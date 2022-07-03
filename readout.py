@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 # GeneralDeps
 import time
 import datetime
