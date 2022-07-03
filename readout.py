@@ -28,7 +28,7 @@ while True:
         write_csv([
             datetime.datetime.now(),
             sensor.read_temperature(),
-            sensor.read_pressure(),
+            sensor.read_pressure()/100,
             sensor.read_altitude(),
             humidity
         ])
