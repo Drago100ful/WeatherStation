@@ -4,6 +4,11 @@ __pycache__/
 *$py.class
 .idea
 
+weather-app/.vscode
+weather-app/node_modules
+weather_log.csv
+
+
 # C extensions
 *.so
 
