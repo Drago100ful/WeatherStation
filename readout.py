@@ -29,7 +29,7 @@ while True:
     try:
         humidity = dhtDevice.humidity
 
-        vals = (datetime.datetime.now(), sensor.read_temperature(), sensor.read_pressure() / 100, sensor.read_altitude(), humidity)
+        vals = (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), sensor.read_temperature(), sensor.read_pressure() / 100, sensor.read_altitude(), humidity)
         cursor.execute(sql, vals)
 
         database.commit()
