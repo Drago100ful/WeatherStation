@@ -11,27 +11,28 @@ import adafruit_dht
 import Adafruit_BMP.BMP085 as BMP085
 
 # SensorInit
+import mysql.connector
+
 dhtDevice = adafruit_dht.DHT11(board.D4)
 sensor = BMP085.BMP085()
 
-# CSVInit
-def write_csv(data):
-    with open('./weather_log.csv', 'a') as outfile:
-        writer = csv.writer(outfile)
-        writer.writerow(data)
-
+# DB
+database = mysql.connector.connect(
+    host="localhost",
+    user="sensor_unit",
+    password="=@{yR5s5?e<Xf§)%"
+)
+cursor = database.cursor()
+sql = "INSERT INTO data_log (log_date, temp, pressure, altitude, humidity) VALUES (%s, %d, %d, %d, %d)"
 
 while True:
     try:
         humidity = dhtDevice.humidity
 
-        write_csv([
-            datetime.datetime.now(),
-            sensor.read_temperature(),
-            sensor.read_pressure()/100,
-            sensor.read_altitude(),
-            humidity
-        ])
+        vals = (datetime.datetime.now(), sensor.read_temperature(), sensor.read_pressure() / 100, sensor.read_altitude(), humidity)
+        cursor.execute(sql, vals)
+
+        database.commit()
 
     except RuntimeError as error:
         # Errors happen fairly often, DHT's are hard to read, just keep going
