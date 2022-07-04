@@ -19,10 +19,11 @@ sensor = BMP085.BMP085()
 database = mysql.connector.connect(
     host="localhost",
     user="sensor_unit",
-    password="=@{yR5s5?e<Xf§)%"
+    password="7uu3qWSPkm00RXBY",
+    database="weather_data"
 )
 cursor = database.cursor()
-sql = "INSERT INTO data_log (log_date, temp, pressure, altitude, humidity) VALUES (%s, %d, %d, %d, %d)"
+sql = "INSERT INTO data_log (log_date, temp, pressure, altitude, humidity)VALUES (%s, %d, %d, %d, %d)"
 
 while True:
     try:
