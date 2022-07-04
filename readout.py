@@ -23,7 +23,7 @@ database = mysql.connector.connect(
     database="weather_data"
 )
 cursor = database.cursor()
-sql = "INSERT INTO data_log (log_date, temp, pressure, altitude, humidity)VALUES (%s, %d, %d, %d, %d)"
+sql = "INSERT INTO data_log (log_date, temp, pressure, altitude, humidity)VALUES (%s, %s, %s, %s, %s)"
 
 while True:
     try:
