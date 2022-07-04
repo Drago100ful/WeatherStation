@@ -10,23 +10,22 @@ export default {
 
   data() {
     return {
-      parsedData: {}
+      parsedData: {},
+      timespan: "5"
     }
   },
 
   created() {
-    this.interval = setInterval(() => this.getData(), 1000);
+    this.getData();
+    this.interval = setInterval(() => this.getData(), 5000);
   },
 
   methods: {
 
     getData() {
-      import ('weather_log.csv').then(function (log){
-        console.log(log);
-      } );
-
-
-
+      fetch("https://127.0.0.1/weathertest/api.php?getTemp&timespan=" + this.timespan)
+          .then(respone => respone.json())
+          .then(data => (this.parsedData = data))
     }
   }
 
