@@ -3,9 +3,10 @@ sudo apt-get update
 sudo apt install python3-pip -y
 sudo apt-get install libgpiod2 -y
 
-sudo pip3 install --user Adafruit-BMP
-sudo pip3 install adafruit-circuitpython-dht
-sudo pip3 install mysql-connector-python
+pip3 install Adafruit-BMP
+pip3 install adafruit-circuitpython-dht
+pip3 install mysql-connector-python
+sudo raspi-config nonint do_i2c 0
 
 sudo apt-get install nginx -y
 sudo apt-get install php7.4 php7.4-fpm php7.4-mysql -y

@@ -3,7 +3,6 @@
 # GeneralDeps
 import time
 import datetime
-import csv
 
 # Sensor
 import board
