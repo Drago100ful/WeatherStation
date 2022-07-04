@@ -20,7 +20,7 @@ sudo apt-get install mariadb-server -y
 sudo mysql -e "
   CREATE DATABASE weather_data CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
   use weather_data;
-  CREATE TABLE data_log(log_date DATE NOT NULL, temp INT NOT NULL, pressure INT NOT NULL, altitude INT NOT NULL, humidity INT NOT NULL, PRIMARY KEY (log_date));
+  CREATE TABLE data_log(log_date DATETIME NOT NULL, temp INT NOT NULL, pressure INT NOT NULL, altitude INT NOT NULL, humidity INT NOT NULL, PRIMARY KEY (log_date));
   CREATE USER 'sensor_unit'@'localhost' IDENTIFIED BY '7uu3qWSPkm00RXBY';
   GRANT INSERT ON data_log TO 'sensor_unit'@'localhost';
   CREATE USER 'server_api'@'localhost' IDENTIFIED BY 'tscNGpxGegDgVTgA';
