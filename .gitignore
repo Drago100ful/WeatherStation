@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 .idea
 
+node_modules
 weather-app/.vscode
 weather-app/node_modules
 weather_log.csv
