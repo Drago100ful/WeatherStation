@@ -18,8 +18,9 @@ cd ./weather-app/
 npm install
 npm run build
 
-sudo cp -a ./rest/. /dist/
+
 sudo rm -rf /var/www/html
 sudo mkdir /var/www/html
+sudo cp -a ./rest/. /var/www/html
 sudo cp -a ./dist/. /var/www/html
 
