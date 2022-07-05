@@ -72,23 +72,16 @@
 </template>
 
 <script>
+import config from "./assets/config.json";
+
 export default {
   data() {
     return {
       parsedData: {},
       timespan: "current",
       darkMode: false,
-      options: [
-        "Aktuell",
-        "Letzten 5 Sekunden",
-        "Letzten 30 Sekunden",
-        "Letzte Minute",
-        "Letzte 30 Minuten",
-        "Letzte Stunde",
-        "Letzten 12 Stunden",
-        "Letzter Tag",
-        "Letzten 7 Tage",
-      ],
+      host: config["host-address"]
+
     };
   },
   watch: {
@@ -110,7 +103,7 @@ export default {
 
     getData() {
       fetch(
-        "http://127.0.0.1/api.php?getTemp&timespan=" +
+        "http://"+ this.host + "/api.php?getTemp&timespan=" +
           this.timespan
       )
         .then((respone) => respone.json())

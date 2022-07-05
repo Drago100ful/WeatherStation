@@ -2,10 +2,7 @@
 sudo apt-get update
 sudo apt install python3-pip -y
 sudo apt-get install libgpiod2 -y
-sudo apt-get install certbot -y
-certbot certonly --webroot -w /var/www/html.com -d yourdomain.com -d www.yourdomain.com
-
-
+sudo apt-get install npm
 
 pip3 install Adafruit-BMP
 pip3 install adafruit-circuitpython-dht
@@ -31,3 +28,17 @@ sudo mysql -e "
   GRANT ALL PRIVILEGES ON data_log TO 'server_api'@'localhost';
   FLUSH PRIVILEGES;
   "
+cd ./weather-app/
+clear
+echo "IP-Adresse des Hosts: "
+
+read hostip
+
+prfx = '{"host-address": "'
+sufx = '"}'
+concat = $prfx + $hostip + $sufx
+
+sudo echo "$concat" > ./weather-app/src/assets/config.json
+npm run install
+npm run buildcd
+
