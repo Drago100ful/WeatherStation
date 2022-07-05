@@ -7,7 +7,7 @@ read hostip
 
 prfx="{\"host-address\": \""
 sufx="\"}"
-concat = $prfx + $hostip + $sufx
+concat=$prfx$hostip$sufx
 
 sudo echo "$concat" > ./weather-app/src/assets/config.json
 npm run install
