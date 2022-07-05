@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sudo apt-get install npm
+sudo apt-get install npm -y
 clear
 echo "IP-Adresse des Hosts: "
 
@@ -12,7 +12,7 @@ concat=$prfx$hostip$sufx
 
 sudo echo "$concat" > ./weather-app/src/assets/config.json
 cd ./weather-app/
-npm run install
+npm install
 npm run build
 
 sudo rm -rf /var/www/html

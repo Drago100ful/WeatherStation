@@ -2,7 +2,7 @@
 sudo apt-get update
 sudo apt install python3-pip -y
 sudo apt-get install libgpiod2 -y
-sudo apt-get install npm
+sudo apt-get install npm -y
 
 pip3 install Adafruit-BMP
 pip3 install adafruit-circuitpython-dht
@@ -28,7 +28,7 @@ sudo mysql -e "
   GRANT ALL PRIVILEGES ON data_log TO 'server_api'@'localhost';
   FLUSH PRIVILEGES;
   "
-  
+
 clear
 echo "IP-Adresse des Hosts: "
 
