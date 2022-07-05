@@ -1,7 +1,7 @@
 #!/bin/sh
-sudo mkdir /home/$USER/WeatherStation/
-sudo cp ./readout.py /home/$USER/WeatherStation/
-
+sudo mkdir $HOME/WeatherStation/
+sudo cp ./readout.py $HOME/WeatherStation/
+sudo echo $HOME
 sudo echo "
 [Unit]
 Description=Starts Sensor Readout
@@ -9,7 +9,7 @@ After=multi-user.target
 
 [Service]
 Type=simple
-ExecStart=/home/$USER/WeatherStation/readout.py#
+ExecStart=$HOME/WeatherStation/readout.py#
 Restart=on-abort
 
 [Install]
