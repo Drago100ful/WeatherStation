@@ -1,8 +1,8 @@
 #!/bin/sh
 
-if [[ $EUID -ne 0 ]]; then
-    echo "$0 is not running as root. Try using sudo."
-    exit 2
+if [[ $(/usr/bin/id -u) -ne 0 ]]; then
+    echo "Not running as root"
+    exit
 fi
 
 sudo mkdir /usr/bin/WeatherStation/
