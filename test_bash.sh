@@ -1,8 +1,10 @@
 #!/bin/sh
 
-if [[ $(/usr/bin/id -u) -ne 0 ]]; then
-    echo "Not running as root"
-    exit
+ROOTUID="0"
+
+if [ "$(id -u)" -ne "$ROOTUID" ] ; then
+    echo "This script must be executed with root privileges."
+    exit 1
 fi
 
 sudo mkdir /usr/bin/WeatherStation/
