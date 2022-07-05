@@ -38,7 +38,35 @@ prfx="{\"host-address\": \""
 sufx="\"}"
 concat=$prfx$hostip$sufx
 
+clear
+
+echo "OK! \n"
 sudo echo "$concat" > ./weather-app/src/assets/config.json
-npm run install
+cd ./weather-app/
+npm install
 npm run build
+
+
+sudo rm -rf /var/www/html
+sudo mkdir /var/www/html
+sudo cp -a ./rest/. /var/www/html
+sudo cp -a ./dist/. /var/www/html
+cd ..
+
+sudo mkdir /home/$USER/WeatherStation/
+sudo cp ./readout.py /home/$USER/WeatherStation/
+
+sudo echo "
+[Unit]
+Description=Starts Sensor Readout
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/home/$USER/WeatherStation/readout.py#
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
+" > /lib/systemd/system/sensor_readout.service
 
