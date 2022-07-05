@@ -2,6 +2,10 @@
 sudo apt-get update
 sudo apt install python3-pip -y
 sudo apt-get install libgpiod2 -y
+sudo apt-get install certbot -y
+certbot certonly --webroot -w /var/www/html.com -d yourdomain.com -d www.yourdomain.com
+
+
 
 pip3 install Adafruit-BMP
 pip3 install adafruit-circuitpython-dht

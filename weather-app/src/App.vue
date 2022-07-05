@@ -110,7 +110,7 @@ export default {
 
     getData() {
       fetch(
-        "https://127.0.0.1/api.php?getTemp&timespan=" +
+        "http://127.0.0.1/api.php?getTemp&timespan=" +
           this.timespan
       )
         .then((respone) => respone.json())
