@@ -10,11 +10,15 @@ prfx="{\"host-address\": \""
 sufx="\"}"
 concat=$prfx$hostip$sufx
 
+clear
+
+echo "OK! \n"
 sudo echo "$concat" > ./weather-app/src/assets/config.json
 cd ./weather-app/
 npm install
 npm run build
 
+sudo cp -a ./rest/. /dist/
 sudo rm -rf /var/www/html
 sudo mkdir /var/www/html
 sudo cp -a ./dist/. /var/www/html
