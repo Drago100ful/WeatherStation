@@ -1,4 +1,11 @@
 #!/bin/sh
+ROOTUID="0"
+
+if [ "$(id -u)" -ne "$ROOTUID" ] ; then
+    echo "This script must be executed with root privileges."
+    exit 1
+fi
+
 sudo apt-get update
 sudo apt install python3-pip -y
 sudo apt-get install libgpiod2 -y
@@ -53,20 +60,21 @@ sudo cp -a ./rest/. /var/www/html
 sudo cp -a ./dist/. /var/www/html
 cd ..
 
-sudo mkdir /home/$USER/WeatherStation/
-sudo cp ./readout.py /home/$USER/WeatherStation/
+sudo mkdir /usr/bin/WeatherStation/
+sudo cp ./readout.py /usr/bin/WeatherStation/
 
-sudo echo "
-[Unit]
+sudo echo "[Unit]
 Description=Starts Sensor Readout
 After=multi-user.target
 
 [Service]
 Type=simple
-ExecStart=/home/$USER/WeatherStation/readout.py#
+ExecStart=/usr/bin/WeatherStation/readout.py
 Restart=on-abort
 
 [Install]
 WantedBy=multi-user.target
 " > /lib/systemd/system/sensor_readout.service
 
+sudo systemctl enable sensor_readout.service
+sudo systemctl start sensor_readout
