@@ -6,25 +6,25 @@ if [ "$(id -u)" -ne "$ROOTUID" ] ; then
     exit 1
 fi
 
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt install python3-pip -y
-sudo apt-get install libgpiod2 -y
-sudo apt-get install npm -y
+sudo apt-get update -qq
+sudo apt-get upgrade -qq
+sudo apt install python3-pip -y -qq
+sudo apt-get install libgpiod2 -y -qq
+sudo apt-get install npm -y -qq
 
-pip3 install Adafruit-BMP
-pip3 install adafruit-circuitpython-dht
-pip3 install mysql-connector-python
+pip3 install Adafruit-BMP --quiet
+pip3 install adafruit-circuitpython-dht --quiet
+pip3 install mysql-connector-python --quiet
 sudo raspi-config nonint do_i2c 0
 
-sudo apt-get install nginx -y
-sudo apt-get install php7.4 php7.4-fpm php7.4-mysql -y
+sudo apt-get install nginx -y -qq
+sudo apt-get install php7.4 php7.4-fpm php7.4-mysql -y -qq
 
 sudo rm /etc/nginx/sites-available/default
 sudo cp ./installer/default /etc/nginx/sites-available/
 sudo chmod -R 777 /var/www/html
 
-sudo apt-get install mariadb-server -y
+sudo apt-get install mariadb-server -y -qq
 
 sudo mysql -e "
   CREATE DATABASE weather_data CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
