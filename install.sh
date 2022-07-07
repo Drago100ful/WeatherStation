@@ -89,3 +89,6 @@ WantedBy=multi-user.target
 echo "Starting service"
 sudo systemctl enable sensor_readout.service
 sudo systemctl start sensor_readout
+
+echo "Restarting nginx"
+sudo systemctl restart nginx

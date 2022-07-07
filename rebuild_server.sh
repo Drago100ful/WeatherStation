@@ -15,16 +15,18 @@ prfx="{\"host-address\": \""
 sufx="\"}"
 concat=$prfx$hostip$sufx
 
-clear
-
-echo "OK! \n"
+echo "Writing Config"
 sudo echo "$concat" > ./weather-app/src/assets/config.json
 cd ./weather-app/
+echo "Building Webapp"
 npm install
 npm run build
 
-
+echo "Copying build"
 sudo rm -rf /var/www/html
 sudo mkdir /var/www/html
 sudo cp -a ./rest/. /var/www/html
 sudo cp -a ./dist/. /var/www/html
+
+echo "Restarting nginx"
+sudo systemctl restart nginx
