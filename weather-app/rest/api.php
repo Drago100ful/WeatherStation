@@ -205,9 +205,10 @@ if (isset($_GET["getAverage"])) {
                 break;
             case "30s":
                 $query = getDataBetween(30);
-                $count = count(getData($query));
+                $queryResult = getData($query);
+                $count = count($queryResult);
 
-                var_dump($query);
+                var_dump($queryResult);
                 $data = [];
                 break;
             case "60s":
