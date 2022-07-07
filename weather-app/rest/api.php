@@ -91,13 +91,7 @@ function average($data): array
             "altitude" => round($altitude /= $size, 1),
         ];
     }
-    return [
-        "date" => $data["date"],
-        "temp" => $data["temp"],
-        "pressure" => $data["pressure"],
-        "humidity" => $data["humidity"],
-        "altitude" => $data["altitude"],
-    ];
+    return [];
 }
 
 if (isset($_GET["getTemp"])) {
@@ -210,23 +204,11 @@ if (isset($_GET["getAverage"])) {
                 respond($data);
                 break;
             case "30s":
-                $date = getCurrentDate();
-                $data = [];
-                for ($i = 0; $i < 3; $i++) {
-                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 10);
-                    $query = mysqli_query(
-                        $database_connection,
-                        "SELECT * FROM data_log WHERE log_date BETWEEN '" .
-                        $pastDate .
-                        "' AND '" .
-                        $date .
-                        "'"
-                    );
+                $query = getDataBetween(30);
+                $count = count(getData($query));
 
-                    $data[$i] = average(getData($query));
-                    $date = $pastDate;
-                }
-                respond($data);
+                var_dump($query);
+                $data = [];
                 break;
             case "60s":
                 $date = getCurrentDate();
