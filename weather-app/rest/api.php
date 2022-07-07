@@ -73,7 +73,7 @@ function average($data): array
         $altitude = 0;
 
         for ($i = 0; $i < $size; $i++) {
-            if($data[$i]["log_date"] !== null){
+            if($data[$i]["date"] !== null){
                 $temp += $data[$i]["temp"];
                 $pressure += $data[$i]["pressure"];
                 $humidity += $data[$i]["humidity"];
