@@ -71,7 +71,7 @@ function average($data): array
         $press = 0;
         $alt = 0;
 
-        for($i = 0; $i < count($data); $i++) {
+        for($i = 0; $i < $count; $i++) {
             $temp += $data[$i]['temp'];
             $humid += $data[$i]['humid'];
             $press += $data[$i]['press'];
@@ -80,10 +80,10 @@ function average($data): array
 
         return [
           "date" => $data[0]["log_date"],
-          "temp" => $temp,
-          "pressure" => $press,
-          "humidity" => $humid,
-          "altitude" => $alt
+          "temp" => $temp/$count,
+          "pressure" => $press/$count,
+          "humidity" => $humid/$count,
+          "altitude" => $alt/$count
         ];
     }
 
@@ -203,7 +203,9 @@ if (isset($_GET["getAverage"])) {
                 $query = getDataBetween(30);
                 $queryResult = getData($query);
                 $count = count($queryResult);
-                $chunks = array_chunk($queryResult, 5);
+                $chunksize = (int) $count/5;
+
+                $chunks = array_chunk($queryResult, $chunksize);
 
                 $data = [];
 
