@@ -38,7 +38,7 @@
               <h1
                 class="text-center text-7xl font-semibold text-slate-900 opacity-95 transition duration-300 dark:text-slate-50"
               >
-                {{ parseInt(parsedData.temp, 2) }}°
+                {{ parseFloat(parsedData.temp, 2) }}°
               </h1>
             </div>
           </div>
@@ -86,9 +86,9 @@
           <div
             class="flex flex-row justify-between text-slate-900 transition duration-300 dark:font-normal dark:text-slate-50"
           >
-            <p class="opacity-95">{{ parsedData.humidity }}%</p>
+            <p class="opacity-95">{{ parseInt(parsedData.humidity) }}%</p>
 
-            <p class="opacity-95">{{ parsedData.pressure / 1000 }} bar</p>
+            <p class="opacity-95">{{ parseFloat(parsedData.pressure / 1000, 2) }} bar</p>
           </div>
         </div>
 
