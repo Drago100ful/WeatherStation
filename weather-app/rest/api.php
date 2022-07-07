@@ -10,8 +10,10 @@ function getData($data)
         $collection = [];
         $index = 0;
         while ($row = mysqli_fetch_array($data, MYSQLI_ASSOC)) {
-            $collection[$index] = $row;
-            $index++;
+            if(isset($row["log_date"])) {
+                $collection[$index] = $row;
+                $index++;
+            }
         }
         return $collection;
     } elseif (mysqli_num_rows($data) > 0) {
@@ -76,6 +78,8 @@ function average($data): array
                 $pressure += $data[$i]["pressure"];
                 $humidity += $data[$i]["humidity"];
                 $altitude += $data[$i]["altitude"];
+            } else {
+                $size--;
             }
         }
 
@@ -183,7 +187,6 @@ if (isset($_GET["getAverage"])) {
                         $date .
                         "'"
                     );
-                    var_dump($data[$i]);
                     $data[$i] = average(getData($query));
 
                     $date = $pastDate;
