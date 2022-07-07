@@ -38,7 +38,7 @@
               <h1
                 class="text-center text-7xl font-semibold text-slate-900 opacity-95 transition duration-300 dark:text-slate-50"
               >
-                {{ parsedData.temp }}°
+                {{ parseInt(parsedData.temp, 2) }}°
               </h1>
             </div>
           </div>
