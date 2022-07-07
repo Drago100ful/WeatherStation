@@ -182,8 +182,8 @@ if (isset($_GET["getAverage"])) {
             case "5s":
                 $date = getCurrentDate();
                 $data = [];
-                for ($i = 0; $i < 3; $i++) {
-                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 2);
+                for ($i = 0; $i < 2; $i++) {
+                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 5);
                     $query = mysqli_query(
                         $database_connection,
                         "SELECT * FROM data_log WHERE log_date BETWEEN '" .
@@ -200,8 +200,8 @@ if (isset($_GET["getAverage"])) {
             case "30s":
                 $date = getCurrentDate();
                 $data = [];
-                for ($i = 0; $i < 6; $i++) {
-                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 5);
+                for ($i = 0; $i < 3; $i++) {
+                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 10);
                     $query = mysqli_query(
                         $database_connection,
                         "SELECT * FROM data_log WHERE log_date BETWEEN '" .
