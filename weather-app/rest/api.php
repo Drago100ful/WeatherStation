@@ -25,7 +25,7 @@ function getData($data)
         ];
     }
 
-    return null;
+    return -1;
 }
 
 function getCurrentDate()
@@ -174,8 +174,8 @@ if (isset($_GET["getAverage"])) {
             case "5s":
                 $date = getCurrentDate();
                 $data = [];
-                for ($i = 0; $i < 5; $i++) {
-                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 1);
+                for ($i = 0; $i < 2; $i++) {
+                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 5);
                     $query = mysqli_query(
                         $database_connection,
                         "SELECT * FROM data_log WHERE log_date BETWEEN '" .
@@ -304,9 +304,8 @@ if (isset($_GET["getAverage"])) {
                         $date .
                         "'"
                     );
-                    if(getData($query) !== NULL) {
                         $data[$i] = average(getData($query));
-                    }
+
 
                     $date = $pastDate;
                 }
@@ -325,9 +324,9 @@ if (isset($_GET["getAverage"])) {
                         $date .
                         "'"
                     );
-                    if(getData($query) !== NULL) {
-                        $data[$i] = average(getData($query));
-                    }
+
+                    $data[$i] = average(getData($query));
+
 
                     $date = $pastDate;
                 }
