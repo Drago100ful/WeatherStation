@@ -1,5 +1,7 @@
 #!/bin/sh
 
+ROOTUID="0"
+
 if [ "$(id -u)" -ne "$ROOTUID" ] ; then
     echo "This script must be executed with root privileges."
     exit 1
