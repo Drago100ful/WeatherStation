@@ -62,6 +62,8 @@ function timeSub($difference)
 
 function average($data): array
 {
+    var_dump($data);
+
     if (isset($data['temp'])) {
         $size = count($data);
         $temp = 0;
