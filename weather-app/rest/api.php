@@ -193,8 +193,9 @@ if (isset($_GET["getAverage"])) {
                     $date = $pastDate;
                 }
                 $findat = [];
+                var_dump($data);
                 for($i = 0; $i < count($data); $i++) {
-                    if($data[$i]['log_date'] !== null) {
+                    if($data[$i]['log_date']) {
                         array_push($findat, $data[$i]);
                     }
                 }
