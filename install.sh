@@ -92,3 +92,5 @@ sudo systemctl start sensor_readout
 
 echo "Restarting nginx"
 sudo systemctl restart nginx
+
+echo "DONE!"
