@@ -213,7 +213,7 @@ if (isset($_GET["getAverage"])) {
                     $data[] = average($chunks[$i]);
                 }
 
-                var_dump($data);
+                respond($data);
 
                 break;
             case "60s":
