@@ -16,9 +16,6 @@ function getData($data)
         return $collection;
     } elseif (mysqli_num_rows($data) > 0) {
         $data = mysqli_fetch_array($data);
-
-
-
         return [
             "date" => $data["log_date"],
             "temp" => $data["temp"],
@@ -27,13 +24,8 @@ function getData($data)
             "altitude" => $data["altitude"],
         ];
     }
-    return json_encode([
-        "date" => null,
-        "temp" => null,
-        "pressure" => null,
-        "humidity" => null,
-        "altitude" => null,
-    ]);
+
+    return null;
 }
 
 function getCurrentDate()
@@ -192,9 +184,7 @@ if (isset($_GET["getAverage"])) {
                         $date .
                         "'"
                     );
-                    if(getData($query) !== NULL) {
-                        $data[$i] = average(getData($query));
-                    }
+                    $data[$i] = average(getData($query));
 
                     $date = $pastDate;
                 }
@@ -213,9 +203,7 @@ if (isset($_GET["getAverage"])) {
                         $date .
                         "'"
                     );
-                    if(getData($query) !== NULL) {
-                        $data[$i] = average(getData($query));
-                    }
+                    $data[$i] = average(getData($query));
 
                     $date = $pastDate;
                 }
@@ -234,9 +222,7 @@ if (isset($_GET["getAverage"])) {
                         $date .
                         "'"
                     );
-                    if(getData($query)['temp'] !== NULL) {
-                        $data[$i] = average(getData($query));
-                    }
+                    $data[$i] = average(getData($query));
 
                     $date = $pastDate;
                 }
