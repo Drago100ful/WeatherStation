@@ -175,9 +175,9 @@ if (isset($_GET["getAverage"])) {
                 $date = getCurrentDate();
                 var_dump($date);
                 $data = [];
-                for ($i = 0; $i < 2; $i++) {
-
-                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 5);
+                for ($i = 0; $i < 3; $i++) {
+                    var_dump($date);
+                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 2);
                     var_dump($pastDate);
                     $query = mysqli_query(
                         $database_connection,
