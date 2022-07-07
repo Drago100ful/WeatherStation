@@ -25,7 +25,7 @@ function getData($data)
         ];
     }
 
-    die();
+return [];
 }
 
 function getCurrentDate()
@@ -71,10 +71,12 @@ function average($data): array
         $altitude = 0;
 
         for ($i = 0; $i < $size; $i++) {
-            $temp += $data[$i]["temp"];
-            $pressure += $data[$i]["pressure"];
-            $humidity += $data[$i]["humidity"];
-            $altitude += $data[$i]["altitude"];
+            if($data[$i]["log_date"] !== null){
+                $temp += $data[$i]["temp"];
+                $pressure += $data[$i]["pressure"];
+                $humidity += $data[$i]["humidity"];
+                $altitude += $data[$i]["altitude"];
+            }
         }
 
         return [
