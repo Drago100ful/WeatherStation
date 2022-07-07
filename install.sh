@@ -13,6 +13,8 @@ echo "Installing Python"
 sudo apt-get install python3-pip -qq
 echo "Installing GPIO Library"
 sudo apt-get install libgpiod2 -qq
+echo "Installing NPM"
+sudo apt-get install npm -qq
 
 echo "Installing Python Libraries"
 pip3 install Adafruit-BMP --quiet
