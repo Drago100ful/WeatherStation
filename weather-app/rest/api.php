@@ -192,8 +192,14 @@ if (isset($_GET["getAverage"])) {
 
                     $date = $pastDate;
                 }
+                $findat = [];
+                for($i = 0; $i < count($data); $i++) {
+                    if($data[$i]['log_date'] !== null) {
+                        array_push($findat, $data[$i]);
+                    }
+                }
+                var_dump($findat);
 
-                var_dump($data);
                 respond($data);
                 break;
             case "30s":
