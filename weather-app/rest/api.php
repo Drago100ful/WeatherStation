@@ -168,34 +168,18 @@ if (isset($_GET["getAverage"])) {
                 respond([getData($data)]);
                 break;
             case "5s":
-                $date = getCurrentDate();
-                var_dump($date);
+                $query = getDataBetween(5);
+                $queryResult = getData($query);
+                $count = count($queryResult);
+                $chunksize = (int) $count/5;
+
+                $chunks = array_chunk($queryResult, $chunksize);
+
                 $data = [];
-                for ($i = 0; $i < 3; $i++) {
-                    var_dump($date);
-                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 3);
-                    var_dump($pastDate);
-                    $query = mysqli_query(
-                        $database_connection,
-                        "SELECT * FROM data_log WHERE log_date BETWEEN '" .
-                        $pastDate .
-                        "' AND '" .
-                        $date .
-                        "'"
-                    );
 
-                    $data[$i] = average(getData($query));
-
-                    $date = $pastDate;
+                for($i = 0; $i < count($chunks); $i++) {
+                    $data[] = average($chunks[$i]);
                 }
-                $findat = [];
-                var_dump($data);
-                for($i = 0; $i < count($data); $i++) {
-                    if($data[$i]['date']) {
-                        array_push($findat, $data[$i]);
-                    }
-                }
-                var_dump($findat);
 
                 respond($data);
                 break;
