@@ -132,6 +132,9 @@ export default {
         xaxis: {
           categories: ["17:24", "17:28", "17:30", "17:30", "17:30", "17:30"],
         },
+        yaxis: {
+          decimalsInFloat: false,
+        },
         stroke: {
           curve: "smooth",
         },
@@ -182,7 +185,7 @@ export default {
       }
     },
 
-    getData() {
+    async getData() {
       fetch(
         "http://" + this.host + "/api.php?getTemp&timespan=" + this.timespan
       )
@@ -200,7 +203,8 @@ export default {
 
     createChartData() {
       for (let i = 0; i < this.rawChartData.length; i++) {
-        this.chartOptions.xaxis.categories[i] = this.rawChartData[i].date;
+        let t = this.chartOptions.xaxis.categories[i].split(/[- :]/);
+        this.rawChartData[i].date = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5])
         this.chartData[0].data[i] = this.rawChartData[i].temp;
         this.chartData[1].data[i] = this.rawChartData[i].humidity;
         this.chartData[2].data[i] = this.rawChartData[i].pressure / 1000;
