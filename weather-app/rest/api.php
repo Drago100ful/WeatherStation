@@ -64,33 +64,29 @@ function timeSub($difference)
 
 function average($data): array
 {
-
-    if (count($data) > 0 ) {
-        $size = count($data);
+    if(isset($data)) {
+        $count = count($data);
         $temp = 0;
-        $pressure = 0;
-        $humidity = 0;
-        $altitude = 0;
+        $humid = 0;
+        $press = 0;
+        $alt = 0;
 
-        for ($i = 0; $i < $size; $i++) {
-            if($data[$i]["date"] !== null){
-                $temp += $data[$i]["temp"];
-                $pressure += $data[$i]["pressure"];
-                $humidity += $data[$i]["humidity"];
-                $altitude += $data[$i]["altitude"];
-            } else {
-                $size--;
-            }
+        for($i = 0; $i < count($data); $i++) {
+            $temp += $data[$i]['temp'];
+            $humid += $data[$i]['humid'];
+            $press += $data[$i]['press'];
+            $alt += $data[$i]['alt'];
         }
 
         return [
-            "date" => $data[0]["date"],
-            "temp" => round($temp /= $size, 1),
-            "pressure" => round($pressure /= $size, 1),
-            "humidity" => round($humidity /= $size, 1),
-            "altitude" => round($altitude /= $size, 1),
+          "date" => $data[0]["log_date"],
+          "temp" => $temp,
+          "pressure" => $press,
+          "humidity" => $humid,
+          "altitude" => $alt
         ];
     }
+
     return [];
 }
 
@@ -208,11 +204,15 @@ if (isset($_GET["getAverage"])) {
                 $queryResult = getData($query);
                 $count = count($queryResult);
                 $chunks = array_chunk($queryResult, 5);
-                var_dump($chunks);
 
-
-                var_dump($queryResult);
                 $data = [];
+
+                for($i = 0; $i < count($chunks); $i++) {
+                    $data[] = average($chunks[$i]);
+                }
+
+                var_dump($data);
+
                 break;
             case "60s":
                 $date = getCurrentDate();
