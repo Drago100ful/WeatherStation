@@ -62,7 +62,7 @@ function timeSub($difference)
 
 function average($data): array
 {
-    if ($data['temp'] !== NULL) {
+    if (isset($data['temp'])) {
         $size = count($data);
         $temp = 0;
         $pressure = 0;
@@ -209,7 +209,6 @@ if (isset($_GET["getAverage"])) {
                     );
 
                     $data[$i] = average(getData($query));
-                    var_dump($data);
                     $date = $pastDate;
                 }
                 respond($data);
