@@ -182,8 +182,8 @@ if (isset($_GET["getAverage"])) {
             case "5s":
                 $date = getCurrentDate();
                 $data = [];
-                for ($i = 0; $i < 2; $i++) {
-                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 5);
+                for ($i = 0; $i < 5; $i++) {
+                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 1);
                     $query = mysqli_query(
                         $database_connection,
                         "SELECT * FROM data_log WHERE log_date BETWEEN '" .
@@ -192,7 +192,10 @@ if (isset($_GET["getAverage"])) {
                         $date .
                         "'"
                     );
-                    $data[$i] = average(getData($query));
+                    if(getData($query) !== NULL) {
+                        $data[$i] = average(getData($query));
+                    }
+
                     $date = $pastDate;
                 }
                 respond($data);
@@ -210,7 +213,10 @@ if (isset($_GET["getAverage"])) {
                         $date .
                         "'"
                     );
-                    $data[$i] = average(getData($query));
+                    if(getData($query) !== NULL) {
+                        $data[$i] = average(getData($query));
+                    }
+
                     $date = $pastDate;
                 }
                 respond($data);
@@ -228,7 +234,10 @@ if (isset($_GET["getAverage"])) {
                         $date .
                         "'"
                     );
-                    $data[$i] = average(getData($query));
+                    if(getData($query)['temp'] !== NULL) {
+                        $data[$i] = average(getData($query));
+                    }
+
                     $date = $pastDate;
                 }
                 respond($data);
@@ -246,7 +255,10 @@ if (isset($_GET["getAverage"])) {
                         $date .
                         "'"
                     );
-                    $data[$i] = average(getData($query));
+                    if(getData($query) !== NULL) {
+                        $data[$i] = average(getData($query));
+                    }
+
                     $date = $pastDate;
                 }
                 respond($data);
@@ -264,7 +276,10 @@ if (isset($_GET["getAverage"])) {
                         $date .
                         "'"
                     );
-                    $data[$i] = average(getData($query));
+                    if(getData($query) !== NULL) {
+                        $data[$i] = average(getData($query));
+                    }
+
                     $date = $pastDate;
                 }
                 respond($data);
@@ -282,7 +297,10 @@ if (isset($_GET["getAverage"])) {
                         $date .
                         "'"
                     );
-                    $data[$i] = average(getData($query));
+                    if(getData($query) !== NULL) {
+                        $data[$i] = average(getData($query));
+                    }
+
                     $date = $pastDate;
                 }
                 respond($data);
@@ -300,7 +318,10 @@ if (isset($_GET["getAverage"])) {
                         $date .
                         "'"
                     );
-                    $data[$i] = average(getData($query));
+                    if(getData($query) !== NULL) {
+                        $data[$i] = average(getData($query));
+                    }
+
                     $date = $pastDate;
                 }
                 respond($data);
@@ -318,7 +339,10 @@ if (isset($_GET["getAverage"])) {
                         $date .
                         "'"
                     );
-                    $data[$i] = average(getData($query));
+                    if(getData($query) !== NULL) {
+                        $data[$i] = average(getData($query));
+                    }
+
                     $date = $pastDate;
                 }
 
@@ -337,7 +361,10 @@ if (isset($_GET["getAverage"])) {
                         $date .
                         "'"
                     );
-                    $data[$i] = average(getData($query));
+                    if(getData($query) !== NULL) {
+                        $data[$i] = average(getData($query));
+                    }
+
                     $date = $pastDate;
                 }
 
