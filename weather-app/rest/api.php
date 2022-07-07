@@ -175,7 +175,7 @@ if (isset($_GET["getAverage"])) {
                 $date = getCurrentDate();
                 $data = [];
                 for ($i = 0; $i < 2; $i++) {
-                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 5);
+                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 30);
                     $query = mysqli_query(
                         $database_connection,
                         "SELECT * FROM data_log WHERE log_date BETWEEN '" .
