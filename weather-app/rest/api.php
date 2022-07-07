@@ -84,6 +84,7 @@ function average($data): array
         }
 
         return [
+            "date" => $data["log_date"],
             "temp" => round($temp /= $size, 1),
             "pressure" => round($pressure /= $size, 1),
             "humidity" => round($humidity /= $size, 1),
