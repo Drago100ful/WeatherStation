@@ -200,7 +200,7 @@ export default {
 
     createChartData() {
       for (let i = 0; i < this.rawChartData.length; i++) {
-        this.chartOptions.categories.xaxis[i] = this.rawChartData[i].date;
+        this.chartOptions.xaxis.categories[i] = this.rawChartData[i].date;
         this.chartData[0].data[i] = this.rawChartData[i].temp;
         this.chartData[1].data[i] = this.rawChartData[i].humidity;
         this.chartData[2].data[i] = this.rawChartData[i].pressure / 1000;

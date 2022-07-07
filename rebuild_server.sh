@@ -7,6 +7,8 @@ if [ "$(id -u)" -ne "$ROOTUID" ] ; then
     exit 1
 fi
 
+sudo systemctl stop nginx
+
 echo "IP-Adresse des Hosts: "
 
 read hostip
