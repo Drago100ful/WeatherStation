@@ -189,9 +189,11 @@ if (isset($_GET["getAverage"])) {
                     );
 
                     $data[$i] = average(getData($query));
-                    var_dump($data);
+
                     $date = $pastDate;
                 }
+
+                var_dump($data);
                 respond($data);
                 break;
             case "30s":
