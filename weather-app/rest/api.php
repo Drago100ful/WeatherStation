@@ -173,6 +173,7 @@ if (isset($_GET["getAverage"])) {
                 break;
             case "5s":
                 $date = getCurrentDate();
+                var_dump($date);
                 $data = [];
                 for ($i = 0; $i < 2; $i++) {
                     $pastDate = date("Y-m-d G:i:s", strtotime($date) - 5);
