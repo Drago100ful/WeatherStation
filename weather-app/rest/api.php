@@ -171,7 +171,7 @@ if (isset($_GET["getAverage"])) {
                 $query = getDataBetween(5);
                 $queryResult = getData($query);
                 $count = count($queryResult);
-                $chunksize = (int) $count/5;
+                $chunksize = (int) $count/3;
 
                 $chunks = array_chunk($queryResult, $chunksize);
 
