@@ -12,7 +12,7 @@ import Adafruit_BMP.BMP085 as BMP085
 # SensorInit
 import mysql.connector
 
-dhtDevice = adafruit_dht.DHT11(board.D17)
+dhtDevice = adafruit_dht.DHT11(board.D4)
 sensor = BMP085.BMP085()
 
 # DB
