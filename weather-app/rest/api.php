@@ -70,7 +70,7 @@ function timeSub($difference)
 
 function average($data): array
 {
-    if (isset($data['log_date'])) {
+    if ($data['temp'] !== NULL) {
         $size = count($data);
         $temp = 0;
         $pressure = 0;
