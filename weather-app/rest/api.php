@@ -195,7 +195,7 @@ if (isset($_GET["getAverage"])) {
                 $findat = [];
                 var_dump($data);
                 for($i = 0; $i < count($data); $i++) {
-                    if($data[$i]['log_date']) {
+                    if($data[$i]['date']) {
                         array_push($findat, $data[$i]);
                     }
                 }
