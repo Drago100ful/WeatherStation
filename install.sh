@@ -7,6 +7,7 @@ if [ "$(id -u)" -ne "$ROOTUID" ] ; then
 fi
 
 sudo apt-get update
+sudo apt-get upgrade
 sudo apt install python3-pip -y
 sudo apt-get install libgpiod2 -y
 sudo apt-get install npm -y
