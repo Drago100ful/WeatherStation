@@ -65,7 +65,7 @@ function timeSub($difference)
 function average($data): array
 {
 
-    if (count($data) !== 0 ) {
+    if (count($data) > 0 ) {
         $size = count($data);
         $temp = 0;
         $pressure = 0;
@@ -84,14 +84,20 @@ function average($data): array
         }
 
         return [
-            "date" => $data[0]["log_date"],
+            "date" => $data[0]["date"],
             "temp" => round($temp /= $size, 1),
             "pressure" => round($pressure /= $size, 1),
             "humidity" => round($humidity /= $size, 1),
             "altitude" => round($altitude /= $size, 1),
         ];
     }
-    return [];
+    return [
+        "date" => $data["date"],
+        "temp" => $data["temp"],
+        "pressure" => $data["pressure"],
+        "humidity" => $data["humidity"],
+        "altitude" => $data["altitude"],
+    ];
 }
 
 if (isset($_GET["getTemp"])) {
