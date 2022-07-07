@@ -207,8 +207,9 @@ if (isset($_GET["getAverage"])) {
                         $date .
                         "'"
                     );
-                    $data[$i] = average(getData($query));
 
+                    $data[$i] = average(getData($query));
+                    var_dump($data);
                     $date = $pastDate;
                 }
                 respond($data);
