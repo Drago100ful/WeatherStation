@@ -25,7 +25,7 @@ function getData($data)
         ];
     }
 
-    return -1;
+    return [];
 }
 
 function getCurrentDate()
@@ -62,9 +62,8 @@ function timeSub($difference)
 
 function average($data): array
 {
-    var_dump($data);
 
-    if (isset($data['temp'])) {
+    if (count($data) !== 0 ) {
         $size = count($data);
         $temp = 0;
         $pressure = 0;
