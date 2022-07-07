@@ -71,7 +71,7 @@ function average($data): array
         $press = 0;
         $alt = 0;
 
-        var_dump($data);
+        echo $data[0]['temp'];
 
         for($i = 0; $i < $count; $i++) {
             $temp += $data[$i]['temp'];
