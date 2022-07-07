@@ -25,7 +25,7 @@ function getData($data)
         ];
     }
 
-    return [];
+    die();
 }
 
 function getCurrentDate()
@@ -85,14 +85,7 @@ function average($data): array
             "altitude" => round($altitude /= $size, 1),
         ];
     }
-
-    return [
-        "date" => null,
-        "temp" => null,
-        "pressure" => null,
-        "humidity" => null,
-        "altitude" => null,
-    ];
+    return [];
 }
 
 if (isset($_GET["getTemp"])) {
@@ -178,7 +171,7 @@ if (isset($_GET["getAverage"])) {
                 $data = [];
                 for ($i = 0; $i < 3; $i++) {
                     var_dump($date);
-                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 2);
+                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 3);
                     var_dump($pastDate);
                     $query = mysqli_query(
                         $database_connection,
