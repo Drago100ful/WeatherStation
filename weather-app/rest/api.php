@@ -19,14 +19,20 @@ function getData($data)
         $data = mysqli_fetch_array($data);
 
         return [
+            "date" => $data["log_date"],
             "temp" => $data["temp"],
             "pressure" => $data["pressure"],
             "humidity" => $data["humidity"],
             "altitude" => $data["altitude"],
         ];
     }
-    echo json_encode(["error" => "No results"]);
-    die();
+    return json_encode([
+        "date" => null,
+        "temp" => null,
+        "pressure" => null,
+        "humidity" => null,
+        "altitude" => null,
+    ]);
 }
 
 function getCurrentDate()
@@ -63,24 +69,34 @@ function timeSub($difference)
 
 function average($data): array
 {
-    $size = count($data);
-    $temp = 0;
-    $pressure = 0;
-    $humidity = 0;
-    $altitude = 0;
+    if (isset($data)) {
+        $size = count($data);
+        $temp = 0;
+        $pressure = 0;
+        $humidity = 0;
+        $altitude = 0;
 
-    for ($i = 0; $i < $size; $i++) {
-        $temp += $data[$i]["temp"];
-        $pressure += $data[$i]["pressure"];
-        $humidity += $data[$i]["humidity"];
-        $altitude += $data[$i]["altitude"];
+        for ($i = 0; $i < $size; $i++) {
+            $temp += $data[$i]["temp"];
+            $pressure += $data[$i]["pressure"];
+            $humidity += $data[$i]["humidity"];
+            $altitude += $data[$i]["altitude"];
+        }
+
+        return [
+            "temp" => round($temp /= $size, 1),
+            "pressure" => round($pressure /= $size, 1),
+            "humidity" => round($humidity /= $size, 1),
+            "altitude" => round($altitude /= $size, 1),
+        ];
     }
 
     return [
-        "temp" => round($temp /= $size, 1),
-        "pressure" => round($pressure /= $size, 1),
-        "humidity" => round($humidity /= $size, 1),
-        "altitude" => round($altitude /= $size, 1),
+        "date" => null,
+        "temp" => null,
+        "pressure" => null,
+        "humidity" => null,
+        "altitude" => null,
     ];
 }
 
@@ -150,7 +166,7 @@ if (isset($_GET["getTemp"])) {
 
 if (isset($_GET["getAverage"])) {
     global $database_connection;
-    if(isset($_GET["timespan"])) {
+    if (isset($_GET["timespan"])) {
         $timespan = htmlspecialchars($_GET["timespan"]);
 
         switch ($timespan) {
@@ -159,52 +175,172 @@ if (isset($_GET["getAverage"])) {
                     $database_connection,
                     "SELECT * FROM data_log ORDER BY log_date DESC LIMIT 1"
                 );
-                respond(getData($data));
+                respond([getData($data)]);
                 break;
             case "5s":
-                $data = getDataBetween(5);
-                respond(average(getData($data)));
+                $date = getCurrentDate();
+                $data = [];
+                for ($i = 0; $i < 5; $i++) {
+                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 1);
+                    $query = mysqli_query(
+                        $database_connection,
+                        "SELECT * FROM data_log WHERE log_date BETWEEN '" .
+                        $pastDate .
+                        "' AND '" .
+                        $date .
+                        "'"
+                    );
+                    $data[$i] = average(getData($query));
+                    $date = $pastDate;
+                }
+                respond($data);
                 break;
             case "30s":
-                $data = getDataBetween(30);
-                respond(average(getData($data)));
-
+                $date = getCurrentDate();
+                $data = [];
+                for ($i = 0; $i < 6; $i++) {
+                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 5);
+                    $query = mysqli_query(
+                        $database_connection,
+                        "SELECT * FROM data_log WHERE log_date BETWEEN '" .
+                        $pastDate .
+                        "' AND '" .
+                        $date .
+                        "'"
+                    );
+                    $data[$i] = average(getData($query));
+                    $date = $pastDate;
+                }
+                respond($data);
                 break;
             case "60s":
-                $data = getDataBetween(60);
-                respond(average($data));
+                $date = getCurrentDate();
+                $data = [];
+                for ($i = 0; $i < 12; $i++) {
+                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 5);
+                    $query = mysqli_query(
+                        $database_connection,
+                        "SELECT * FROM data_log WHERE log_date BETWEEN '" .
+                        $pastDate .
+                        "' AND '" .
+                        $date .
+                        "'"
+                    );
+                    $data[$i] = average(getData($query));
+                    $date = $pastDate;
+                }
+                respond($data);
                 break;
             case "5min":
-                $data = $data = getDataBetween(300);
-                respond(average($data));
+                $date = getCurrentDate();
+                $data = [];
+                for ($i = 0; $i < 5; $i++) {
+                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 60);
+                    $query = mysqli_query(
+                        $database_connection,
+                        "SELECT * FROM data_log WHERE log_date BETWEEN '" .
+                        $pastDate .
+                        "' AND '" .
+                        $date .
+                        "'"
+                    );
+                    $data[$i] = average(getData($query));
+                    $date = $pastDate;
+                }
+                respond($data);
                 break;
             case "30min":
-                $data = $data = getDataBetween(1800);
-                respond(average($data));
+                $date = getCurrentDate();
+                $data = [];
+                for ($i = 0; $i < 6; $i++) {
+                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 300);
+                    $query = mysqli_query(
+                        $database_connection,
+                        "SELECT * FROM data_log WHERE log_date BETWEEN '" .
+                        $pastDate .
+                        "' AND '" .
+                        $date .
+                        "'"
+                    );
+                    $data[$i] = average(getData($query));
+                    $date = $pastDate;
+                }
+                respond($data);
                 break;
             case "1h":
-                $data = $data = getDataBetween(3600);
-                $data = getData($data);
-
-                respond(average($data));
+                $date = getCurrentDate();
+                $data = [];
+                for ($i = 0; $i < 12; $i++) {
+                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 300);
+                    $query = mysqli_query(
+                        $database_connection,
+                        "SELECT * FROM data_log WHERE log_date BETWEEN '" .
+                        $pastDate .
+                        "' AND '" .
+                        $date .
+                        "'"
+                    );
+                    $data[$i] = average(getData($query));
+                    $date = $pastDate;
+                }
+                respond($data);
                 break;
             case "12h":
-                $data = $data = getDataBetween(43200);
-                $data = getData($data);
-
-                respond(average($data));
+                $date = getCurrentDate();
+                $data = [];
+                for ($i = 0; $i < 12; $i++) {
+                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 3600);
+                    $query = mysqli_query(
+                        $database_connection,
+                        "SELECT * FROM data_log WHERE log_date BETWEEN '" .
+                        $pastDate .
+                        "' AND '" .
+                        $date .
+                        "'"
+                    );
+                    $data[$i] = average(getData($query));
+                    $date = $pastDate;
+                }
+                respond($data);
                 break;
             case "1d":
-                $data = $data = getDataBetween(86400);
-                $data = getData($data);
+                $date = getCurrentDate();
+                $data = [];
+                for ($i = 0; $i < 24; $i++) {
+                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 3600);
+                    $query = mysqli_query(
+                        $database_connection,
+                        "SELECT * FROM data_log WHERE log_date BETWEEN '" .
+                        $pastDate .
+                        "' AND '" .
+                        $date .
+                        "'"
+                    );
+                    $data[$i] = average(getData($query));
+                    $date = $pastDate;
+                }
 
-                respond(average($data));
+                respond($data);
                 break;
             case "7d":
-                $data = $data = getDataBetween(604800);
-                $data = getData($data);
+                $date = getCurrentDate();
+                $data = [];
+                for ($i = 0; $i < 7; $i++) {
+                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 86400);
+                    $query = mysqli_query(
+                        $database_connection,
+                        "SELECT * FROM data_log WHERE log_date BETWEEN '" .
+                        $pastDate .
+                        "' AND '" .
+                        $date .
+                        "'"
+                    );
+                    $data[$i] = average(getData($query));
+                    $date = $pastDate;
+                }
 
-                respond(average($data));
+                respond($data);
+
                 break;
         }
         mysqli_close($database_connection);
