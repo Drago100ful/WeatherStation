@@ -71,13 +71,11 @@ function average($data): array
         $press = 0;
         $alt = 0;
 
-        echo $data[0]['temp'];
-
         for($i = 0; $i < $count; $i++) {
             $temp += $data[$i]['temp'];
-            $humid += $data[$i]['humid'];
-            $press += $data[$i]['press'];
-            $alt += $data[$i]['alt'];
+            $humid += $data[$i]['humidity'];
+            $press += $data[$i]['pressure'];
+            $alt += $data[$i]['altitude'];
         }
 
         return [
