@@ -147,3 +147,67 @@ if (isset($_GET["getTemp"])) {
         die();
     }
 }
+
+if (isset($_GET["getAverage"])) {
+    global $database_connection;
+    if(isset($_GET["timespan"])) {
+        $timespan = htmlspecialchars($_GET["timespan"]);
+
+        switch ($timespan) {
+            case "current":
+                $data = mysqli_query(
+                    $database_connection,
+                    "SELECT * FROM data_log ORDER BY log_date DESC LIMIT 1"
+                );
+                respond(getData($data));
+                break;
+            case "5s":
+                $data = getDataBetween(5);
+                respond(average(getData($data)));
+                break;
+            case "30s":
+                $data = getDataBetween(30);
+                respond(average(getData($data)));
+
+                break;
+            case "60s":
+                $data = getDataBetween(60);
+                respond(average($data));
+                break;
+            case "5min":
+                $data = $data = getDataBetween(300);
+                respond(average($data));
+                break;
+            case "30min":
+                $data = $data = getDataBetween(1800);
+                respond(average($data));
+                break;
+            case "1h":
+                $data = $data = getDataBetween(3600);
+                $data = getData($data);
+
+                respond(average($data));
+                break;
+            case "12h":
+                $data = $data = getDataBetween(43200);
+                $data = getData($data);
+
+                respond(average($data));
+                break;
+            case "1d":
+                $data = $data = getDataBetween(86400);
+                $data = getData($data);
+
+                respond(average($data));
+                break;
+            case "7d":
+                $data = $data = getDataBetween(604800);
+                $data = getData($data);
+
+                respond(average($data));
+                break;
+        }
+        mysqli_close($database_connection);
+        die();
+    }
+}
