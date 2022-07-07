@@ -207,6 +207,9 @@ if (isset($_GET["getAverage"])) {
                 $query = getDataBetween(30);
                 $queryResult = getData($query);
                 $count = count($queryResult);
+                $chunks = array_chunk($queryResult, 5);
+                var_dump($chunks);
+
 
                 var_dump($queryResult);
                 $data = [];
