@@ -201,151 +201,116 @@ if (isset($_GET["getAverage"])) {
 
                 break;
             case "60s":
-                $date = getCurrentDate();
-                $data = [];
-                for ($i = 0; $i < 6; $i++) {
-                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 10);
-                    $query = mysqli_query(
-                        $database_connection,
-                        "SELECT * FROM data_log WHERE log_date BETWEEN '" .
-                        $pastDate .
-                        "' AND '" .
-                        $date .
-                        "'"
-                    );
-                    $data[$i] = average(getData($query));
+                $query = getDataBetween(60);
+                $queryResult = getData($query);
+                $count = count($queryResult);
+                $chunksize = (int) $count/10;
 
-                    $date = $pastDate;
+                $chunks = array_chunk($queryResult, $chunksize);
+
+                $data = [];
+
+                for($i = 0; $i < count($chunks); $i++) {
+                    $data[] = average($chunks[$i]);
                 }
+
                 respond($data);
                 break;
             case "5min":
-                $date = getCurrentDate();
-                $data = [];
-                for ($i = 0; $i < 5; $i++) {
-                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 60);
-                    $query = mysqli_query(
-                        $database_connection,
-                        "SELECT * FROM data_log WHERE log_date BETWEEN '" .
-                        $pastDate .
-                        "' AND '" .
-                        $date .
-                        "'"
-                    );
-                    if(getData($query) !== NULL) {
-                        $data[$i] = average(getData($query));
-                    }
+                $query = getDataBetween(300);
+                $queryResult = getData($query);
+                $count = count($queryResult);
+                $chunksize = (int) $count/5;
 
-                    $date = $pastDate;
+                $chunks = array_chunk($queryResult, $chunksize);
+
+                $data = [];
+
+                for($i = 0; $i < count($chunks); $i++) {
+                    $data[] = average($chunks[$i]);
                 }
+
                 respond($data);
                 break;
             case "30min":
-                $date = getCurrentDate();
-                $data = [];
-                for ($i = 0; $i < 6; $i++) {
-                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 300);
-                    $query = mysqli_query(
-                        $database_connection,
-                        "SELECT * FROM data_log WHERE log_date BETWEEN '" .
-                        $pastDate .
-                        "' AND '" .
-                        $date .
-                        "'"
-                    );
-                    if(getData($query) !== NULL) {
-                        $data[$i] = average(getData($query));
-                    }
+                $query = getDataBetween(1800);
+                $queryResult = getData($query);
+                $count = count($queryResult);
+                $chunksize = (int) $count/5;
 
-                    $date = $pastDate;
+                $chunks = array_chunk($queryResult, $chunksize);
+
+                $data = [];
+
+                for($i = 0; $i < count($chunks); $i++) {
+                    $data[] = average($chunks[$i]);
                 }
+
                 respond($data);
                 break;
             case "1h":
-                $date = getCurrentDate();
-                $data = [];
-                for ($i = 0; $i < 12; $i++) {
-                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 300);
-                    $query = mysqli_query(
-                        $database_connection,
-                        "SELECT * FROM data_log WHERE log_date BETWEEN '" .
-                        $pastDate .
-                        "' AND '" .
-                        $date .
-                        "'"
-                    );
-                    if(getData($query) !== NULL) {
-                        $data[$i] = average(getData($query));
-                    }
+                $query = getDataBetween(3600);
+                $queryResult = getData($query);
+                $count = count($queryResult);
+                $chunksize = (int) $count/6;
 
-                    $date = $pastDate;
+                $chunks = array_chunk($queryResult, $chunksize);
+
+                $data = [];
+
+                for($i = 0; $i < count($chunks); $i++) {
+                    $data[] = average($chunks[$i]);
                 }
+
                 respond($data);
                 break;
             case "12h":
-                $date = getCurrentDate();
+                $query = getDataBetween(43200);
+                $queryResult = getData($query);
+                $count = count($queryResult);
+                $chunksize = (int) $count/12;
+
+                $chunks = array_chunk($queryResult, $chunksize);
+
                 $data = [];
-                for ($i = 0; $i < 12; $i++) {
-                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 3600);
-                    $query = mysqli_query(
-                        $database_connection,
-                        "SELECT * FROM data_log WHERE log_date BETWEEN '" .
-                        $pastDate .
-                        "' AND '" .
-                        $date .
-                        "'"
-                    );
-                        $data[$i] = average(getData($query));
 
-
-                    $date = $pastDate;
+                for($i = 0; $i < count($chunks); $i++) {
+                    $data[] = average($chunks[$i]);
                 }
+
                 respond($data);
                 break;
             case "1d":
-                $date = getCurrentDate();
+                $query = getDataBetween(86400);
+                $queryResult = getData($query);
+                $count = count($queryResult);
+                $chunksize = (int) $count/24;
+
+                $chunks = array_chunk($queryResult, $chunksize);
+
                 $data = [];
-                for ($i = 0; $i < 24; $i++) {
-                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 3600);
-                    $query = mysqli_query(
-                        $database_connection,
-                        "SELECT * FROM data_log WHERE log_date BETWEEN '" .
-                        $pastDate .
-                        "' AND '" .
-                        $date .
-                        "'"
-                    );
 
-                    $data[$i] = average(getData($query));
-
-
-                    $date = $pastDate;
+                for($i = 0; $i < count($chunks); $i++) {
+                    $data[] = average($chunks[$i]);
                 }
 
                 respond($data);
                 break;
             case "7d":
-                $date = getCurrentDate();
-                $data = [];
-                for ($i = 0; $i < 7; $i++) {
-                    $pastDate = date("Y-m-d G:i:s", strtotime($date) - 86400);
-                    $query = mysqli_query(
-                        $database_connection,
-                        "SELECT * FROM data_log WHERE log_date BETWEEN '" .
-                        $pastDate .
-                        "' AND '" .
-                        $date .
-                        "'"
-                    );
-                    if(getData($query) !== NULL) {
-                        $data[$i] = average(getData($query));
-                    }
+                $query = getDataBetween(604800);
+                $queryResult = getData($query);
+                $count = count($queryResult);
+                $chunksize = (int) $count/7;
 
-                    $date = $pastDate;
+                $chunks = array_chunk($queryResult, $chunksize);
+
+                $data = [];
+
+                for($i = 0; $i < count($chunks); $i++) {
+                    $data[] = average($chunks[$i]);
                 }
 
                 respond($data);
-
                 break;
         }
         mysqli_close($database_connection);
